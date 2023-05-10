@@ -1,5 +1,6 @@
 package com.humanresources.webservice.workers;
 
+import com.humanresources.webservice.dto.WorkerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class WorkersController {
     WorkersService workersService;
 
     @GetMapping("/getWorkers")
-    public List<Workers> getProjects(){
+    public List<WorkerDto> getWorkers(){
         return workersService.getAllWorkers();
     }
 
