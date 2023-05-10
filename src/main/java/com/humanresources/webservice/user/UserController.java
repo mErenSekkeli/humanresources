@@ -1,7 +1,9 @@
 package com.humanresources.webservice.user;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.humanresources.webservice.error.ApiError;
 import com.humanresources.webservice.shared.GenericResponse;
+import com.humanresources.webservice.shared.Views;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +42,7 @@ public class UserController {
 
 
     @PostMapping("/api/1.0/getUserByEmail")
+    @JsonView(Views.Public.class)
     public Users getUserByEmail(@RequestParam String email) {
         return userService.getUserByEmail(email);
     }
