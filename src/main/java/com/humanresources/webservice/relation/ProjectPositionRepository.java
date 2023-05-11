@@ -1,8 +1,14 @@
 package com.humanresources.webservice.relation;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ProjectPositionRepository extends JpaRepository<ProjectPosition, Long> {
 
-    ProjectPosition findByProjectId(Long projectId);
+    @Query(nativeQuery = true, value = "SELECT * FROM project_position WHERE project_id =:projectId")
+    Iterable<ProjectPosition> findAllByProjectId(@RequestParam Long projectId);
+
+    @Query(nativeQuery = true, value = "SELECT COUNT(*) FROM workers WHERE project_id =:projectId AND position_id =:positionId")
+    int countAllByWorkerId(@RequestParam Long projectId, @RequestParam Long positionId);
 }

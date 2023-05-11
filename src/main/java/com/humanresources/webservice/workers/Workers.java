@@ -26,6 +26,8 @@ public class Workers {
     private int salary;
     @Column(name = "positionId", nullable = false)
     private long positionId;
+    @Column(name = "projectId", nullable = false)
+    private long projectId;
     @Column(name = "recruitmentDate", nullable = false)
     private Date recruitmentDate;
     @Column(name = "termiantionDate", nullable = false)

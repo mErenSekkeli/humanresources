@@ -1,10 +1,8 @@
 package com.humanresources.webservice.relation;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -15,12 +13,17 @@ public class ProjectPositionController {
     ProjectPositionService projectPositionService;
 
     @PostMapping("/addProjectPosition")
-    public ProjectPosition addProjectPosition(ProjectPosition projectPosition){
+    public ProjectPosition addProjectPosition(@RequestBody ProjectPosition projectPosition){
         return projectPositionService.addProjectPosition(projectPosition);
     }
 
     @PostMapping("getProjectPositionByProjectId")
-    public ProjectPosition getProjectPositionByProjectId(Long projectId){
+    public ProjectPosition getProjectPositionByProjectId(@RequestParam Long projectId){
         return projectPositionService.getProjectPositionByProjectId(projectId);
+    }
+
+    @PostMapping("getAllProjectPositions")
+    public Iterable<ProjectPosition> getAllProjectPositions(){
+        return projectPositionService.getAllProjectPositions();
     }
 }

@@ -33,8 +33,10 @@ public class WorkersService {
             Positions positions1 = null;
 
             for (Positions element: positions) {
-                if(element.getId() == worker.getPositionId())
+                if(element.getId() == worker.getPositionId()){
                     positions1 = element;
+                    break;
+                }
             }
 
             if(positions1 != null)
@@ -43,6 +45,39 @@ public class WorkersService {
         }
 
         return workerDtos;
+    }
+
+    public List<WorkerDto> getAllWorkerFromProject(long projectId) {
+        List<Workers>  workers = workersRepository.findAll();
+        List<Positions> positions = positionsService.getAllPositions();
+        List<WorkerDto> workerDtos = new ArrayList<>();
+
+        for (Workers worker: workers) {
+            Positions positions1 = null;
+
+            for (Positions element: positions) {
+                if(element.getId() == worker.getPositionId()){
+                    positions1 = element;
+                    break;
+                }
+            }
+
+            if(positions1 != null && worker.getProjectId() == projectId)
+                workerDtos.add(new WorkerDto(worker,positions1));
+
+        }
+
+        return workerDtos;
+    }
+
+    public void changeUserProject(Long workerId, Long projectId){
+        Workers worker = workersRepository.findById(workerId).get();
+        worker.setProjectId(projectId);
+        workersRepository.save(worker);
+    }
+
+    public void deleteWorker(Long workerId){
+        workersRepository.deleteById(workerId);
     }
 
     public Workers addWorker(Workers worker){

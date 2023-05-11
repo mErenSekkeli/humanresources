@@ -13,7 +13,15 @@ public class ProjectPositionService {
         return projectPositionRepository.save(projectPosition);
     }
 
-    public ProjectPosition getProjectPositionByProjectId(Long projectId){
-        return projectPositionRepository.findByProjectId(projectId);
+    public Iterable<ProjectPosition> getProjectPositionByProjectId(Long projectId){
+        return projectPositionRepository.findAllByProjectId(projectId);
+    }
+
+    public Iterable<ProjectPosition> getAllProjectPositions(){
+        return projectPositionRepository.findAll();
+    }
+
+    public int getWorkerPositionCount(Long projectId, Long positionId){
+        return projectPositionRepository.countAllByWorkerId(projectId, positionId);
     }
 }

@@ -23,4 +23,9 @@ public class WorkersController {
     public Workers addProject(@RequestBody Workers worker){
         return workersService.addWorker(worker);
     }
+
+    @PostMapping("/getAllWorkerFromProject")
+    public List<WorkerDto> getAllWorkerFromProject(@RequestParam Long projectId){
+        return workersService.getAllWorkerFromProject(projectId);
+    }
 }

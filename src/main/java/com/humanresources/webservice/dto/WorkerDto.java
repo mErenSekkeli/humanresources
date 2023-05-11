@@ -18,7 +18,11 @@ public class WorkerDto {
         public String address;
         public String telNo;
         public int salary;
+
+        public long positionId;
         public String position;
+
+        public long projectId;
         public Date recruitmentDate;
         public Date termiantionDate;
         public int compensationAmount;
@@ -31,7 +35,9 @@ public class WorkerDto {
                 this.address = worker.getAddress();
                 this.telNo = worker.getTelNo();
                 this.salary = worker.getSalary();
+                this.positionId = worker.getPositionId();
                 this.position = positions.getName();
+                this.projectId = worker.getProjectId();
                 this.recruitmentDate = worker.getRecruitmentDate();
                 this.termiantionDate = worker.getTermiantionDate();
                 this.compensationAmount = worker.getCompensationAmount();
