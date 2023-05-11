@@ -1,5 +1,6 @@
 package com.humanresources.webservice.projects;
 
+import com.humanresources.webservice.shared.GenericResponse;
 import com.humanresources.webservice.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +22,23 @@ public class ProjectsService {
         return projectsRepository.findAll();
     }
 
+    public Iterable<Projects> getAllActiveProjects(){
+        return projectsRepository.findAllByActive();
+    }
+
    public Projects addProject(Projects projects){
         return projectsRepository.save(projects);
    }
+
+    public Projects getProjectById(Long projectId){
+         return projectsRepository.findById(projectId).get();
+    }
+
+   public void finishProject(Long projectId){
+       Projects project = projectsRepository.findById(projectId).get();
+       project.setActive(false);
+       projectsRepository.save(project);
+   }
+
+
 }

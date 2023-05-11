@@ -27,4 +27,12 @@ public class Projects {
     private boolean valid;
     @Column(name = "managerId", nullable = false)
     private long managerId;
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 }
