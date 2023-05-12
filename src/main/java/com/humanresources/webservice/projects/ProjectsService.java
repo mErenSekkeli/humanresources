@@ -2,6 +2,7 @@ package com.humanresources.webservice.projects;
 
 import com.humanresources.webservice.shared.GenericResponse;
 import com.humanresources.webservice.user.UserRepository;
+import com.humanresources.webservice.workers.Workers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,14 @@ public class ProjectsService {
        Projects project = projectsRepository.findById(projectId).get();
        project.setActive(false);
        projectsRepository.save(project);
+   }
+
+   public List<Projects> getExpiredProjects(){
+       return projectsRepository.getExpiredProjects();
+   }
+
+   public Long getManagerId(Long projectId){
+       return projectsRepository.getManagerId(projectId);
    }
 
 
