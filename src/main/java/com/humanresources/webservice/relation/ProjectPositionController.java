@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/1.0")
@@ -18,7 +20,7 @@ public class ProjectPositionController {
     }
 
     @PostMapping("getProjectPositionByProjectId")
-    public ProjectPosition getProjectPositionByProjectId(@RequestParam Long projectId){
+    public List<ProjectPosition> getProjectPositionByProjectId(@RequestParam Long projectId){
         return projectPositionService.getProjectPositionByProjectId(projectId);
     }
 

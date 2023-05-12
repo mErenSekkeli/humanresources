@@ -3,6 +3,8 @@ package com.humanresources.webservice.workers;
 import com.humanresources.webservice.dto.WorkerDto;
 import com.humanresources.webservice.positions.Positions;
 import com.humanresources.webservice.positions.PositionsService;
+import com.humanresources.webservice.projects.Projects;
+import com.humanresources.webservice.projects.ProjectsService;
 import com.humanresources.webservice.workers.WorkersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +19,9 @@ public class WorkersService {
 
     @Autowired
     PositionsService positionsService;
+
+    @Autowired
+    ProjectsService projectsService;
 
     @Autowired
     public WorkersService(WorkersRepository workersRepository) {
@@ -83,4 +88,10 @@ public class WorkersService {
     public Workers addWorker(Workers worker){
         return workersRepository.save(worker);
     }
+
+    public Workers getWorkerById(Long workerId){
+        return workersRepository.findById(workerId).get();
+    }
+
+
 }

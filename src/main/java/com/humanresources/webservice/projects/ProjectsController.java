@@ -68,4 +68,15 @@ public class ProjectsController {
 
         return willDeleteWorkers;
     }
+
+    @PostMapping("/getExpiredProjects")
+    public List<Projects> getExpiredProjects(){
+        return  projectsService.getExpiredProjects();
+    }
+
+    @PostMapping("/getManagerProject")
+    public Workers getManagerProject(@RequestParam Long projectId){
+        Long managerId = projectsService.getManagerId(projectId);
+        return workersService.getWorkerById(managerId);
+    }
 }

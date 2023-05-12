@@ -3,6 +3,8 @@ package com.humanresources.webservice.relation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProjectPositionService {
 
@@ -13,7 +15,7 @@ public class ProjectPositionService {
         return projectPositionRepository.save(projectPosition);
     }
 
-    public Iterable<ProjectPosition> getProjectPositionByProjectId(Long projectId){
+    public List<ProjectPosition> getProjectPositionByProjectId(Long projectId){
         return projectPositionRepository.findAllByProjectId(projectId);
     }
 
