@@ -30,9 +30,9 @@ public class Workers {
     private long projectId;
     @Column(name = "recruitmentDate", nullable = false)
     private Date recruitmentDate;
-    @Column(name = "termiantionDate", nullable = false)
+    @Column(name = "termiantionDate")
     private Date termiantionDate;
-    @Column(name = "compensationAmount", nullable = false)
+    @Column(name = "compensationAmount")
     private int compensationAmount;
 
 }
