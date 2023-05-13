@@ -34,7 +34,8 @@ public class WorkersController {
 
     @PostMapping("/addWorker")
     public Workers addProject(@RequestBody Workers worker){
-        return workersService.addWorker(worker);
+        Workers newWorker = workersService.addWorker(worker);
+        return newWorker;
     }
 
     @PostMapping("/findFreePosition")
@@ -44,7 +45,7 @@ public class WorkersController {
         for(Projects project : projects) {
             ArrayList<ProjectPosition> projectPositions = (ArrayList<ProjectPosition>) projectPositionService.getProjectPositionByProjectId(project.getId());
             for(ProjectPosition projectPosition : projectPositions){
-                if(worker.getPositionId() == projectPosition.getId()) {
+                if(worker.getPositionId() == projectPosition.getPositionId()) {
                     int workerCount = projectPositionService.getWorkerPositionCount(project.getId(), projectPosition.getPositionId());
                     if(workerCount < projectPosition.getMaxWorker()){
                         workersService.changeUserProject(workerId, project.getId());
@@ -59,6 +60,11 @@ public class WorkersController {
     @PostMapping("/getAllWorkerFromProject")
     public List<WorkerDto> getAllWorkerFromProject(@RequestParam Long projectId){
         return workersService.getAllWorkerFromProject(projectId);
+    }
+
+    @GetMapping("/getFreeWorkers")
+    public List<Workers> getFreeWorkers(){
+        return workersService.getFreeWorkers();
     }
 
 
