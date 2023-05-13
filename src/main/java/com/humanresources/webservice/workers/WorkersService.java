@@ -81,6 +81,12 @@ public class WorkersService {
         workersRepository.save(worker);
     }
 
+    public void changeUserPostion(Long workerId, Long positionId){
+        Workers worker = workersRepository.findById(workerId).get();
+        worker.setPositionId(positionId);
+        workersRepository.save(worker);
+    }
+
     public void deleteWorker(Long workerId){
         workersRepository.deleteById(workerId);
     }

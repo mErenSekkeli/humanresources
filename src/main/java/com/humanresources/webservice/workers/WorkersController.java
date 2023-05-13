@@ -40,13 +40,16 @@ public class WorkersController {
     @PostMapping("/findFreePosition")
     public ResponseEntity<?> findFreePosition(@RequestParam Long workerId){
         ArrayList<Projects> projects = (ArrayList<Projects>) projectsService.getAllActiveProjects();
+        Workers worker = workersService.getWorkerById(workerId);
         for(Projects project : projects) {
             ArrayList<ProjectPosition> projectPositions = (ArrayList<ProjectPosition>) projectPositionService.getProjectPositionByProjectId(project.getId());
             for(ProjectPosition projectPosition : projectPositions){
-                int workerCount = projectPositionService.getWorkerPositionCount(project.getId(), projectPosition.getPositionId());
-                if(workerCount < projectPosition.getMaxWorker()){
-                    workersService.changeUserProject(workerId, project.getId());
-                    return ResponseEntity.ok(new GenericResponse("Worker is added to project"));
+                if(worker.getPositionId() == projectPosition.getId()) {
+                    int workerCount = projectPositionService.getWorkerPositionCount(project.getId(), projectPosition.getPositionId());
+                    if(workerCount < projectPosition.getMaxWorker()){
+                        workersService.changeUserProject(workerId, project.getId());
+                        return ResponseEntity.ok(new GenericResponse("Worker is added to project"));
+                    }
                 }
             }
         }
