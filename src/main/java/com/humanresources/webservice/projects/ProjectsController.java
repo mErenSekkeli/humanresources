@@ -3,9 +3,11 @@ package com.humanresources.webservice.projects;
 import com.humanresources.webservice.dto.WorkerDto;
 import com.humanresources.webservice.relation.ProjectPosition;
 import com.humanresources.webservice.relation.ProjectPositionService;
+import com.humanresources.webservice.shared.GenericResponse;
 import com.humanresources.webservice.workers.Workers;
 import com.humanresources.webservice.workers.WorkersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -73,8 +75,11 @@ public class ProjectsController {
     }
 
     @PostMapping("/getManagerProject")
-    public Workers getManagerProject(@RequestParam Long projectId){
+    public ResponseEntity<?> getManagerProject(@RequestParam Long projectId){
         Long managerId = projectsService.getManagerId(projectId);
-        return workersService.getWorkerById(managerId);
+        if(managerId == -1L){
+            return ResponseEntity.ok(new GenericResponse("Project has no manager"));
+        }
+        return ResponseEntity.ok(workersService.getWorkerById(managerId));
     }
 }

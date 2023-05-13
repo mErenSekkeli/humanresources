@@ -42,7 +42,11 @@ public class ProjectsService {
    }
 
    public Long getManagerId(Long projectId){
-       return projectsRepository.getManagerId(projectId);
+        Long managerId = projectsRepository.getManagerId(projectId);
+        if(managerId == null)
+            return -1L;
+        else
+            return managerId;
    }
 
 
