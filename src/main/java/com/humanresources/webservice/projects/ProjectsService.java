@@ -1,13 +1,16 @@
 package com.humanresources.webservice.projects;
 
+import com.humanresources.webservice.dto.ProjectDto;
+import com.humanresources.webservice.workers.Workers;
+import com.humanresources.webservice.workers.WorkersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ProjectsService {
     ProjectsRepository projectsRepository;
-
     @Autowired
     public ProjectsService(ProjectsRepository projectsRepository) {
         this.projectsRepository = projectsRepository;
@@ -36,9 +39,10 @@ public class ProjectsService {
        projectsRepository.save(project);
    }
 
-   public List<Projects> getExpiredProjects(){
-       return projectsRepository.getExpiredProjects();
-   }
+
+    public List<Projects> getExpiredProjects(){
+        return projectsRepository.getExpiredProjects();
+    }
 
    public Long getManagerId(Long projectId){
         Long managerId = projectsRepository.getManagerId(projectId);

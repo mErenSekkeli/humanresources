@@ -52,6 +52,12 @@ public class WorkersService {
         return workerDtos;
     }
 
+    public List<Workers> getFreeWorkers(){
+        return workersRepository.findFreeWorkers();
+    }
+
+
+
     public List<WorkerDto> getAllWorkerFromProject(long projectId) {
         List<Workers>  workers = workersRepository.findAll();
         List<Positions> positions = positionsService.getAllPositions();
@@ -92,7 +98,9 @@ public class WorkersService {
     }
 
     public Workers addWorker(Workers worker){
-        return workersRepository.save(worker);
+        worker = workersRepository.save(worker);
+        workersRepository.flush();
+        return worker;
     }
 
     public Workers getWorkerById(Long workerId){

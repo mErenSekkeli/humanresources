@@ -1,5 +1,6 @@
 package com.humanresources.webservice.projects;
 
+import com.humanresources.webservice.dto.ProjectDto;
 import com.humanresources.webservice.dto.WorkerDto;
 import com.humanresources.webservice.relation.ProjectPosition;
 import com.humanresources.webservice.relation.ProjectPositionService;
@@ -19,6 +20,8 @@ public class ProjectsController {
 
     @Autowired
     ProjectsService projectsService;
+
+    ProjectsRepository projectsRepository;
 
     @Autowired
     ProjectPositionService projectPositionService;
@@ -69,8 +72,18 @@ public class ProjectsController {
     }
 
     @PostMapping("/getExpiredProjects")
-    public List<Projects> getExpiredProjects(){
-        return  projectsService.getExpiredProjects();
+    public List<ProjectDto> getExpiredProjects(){
+        List<Projects> projects = projectsService.getExpiredProjects();
+        List<ProjectDto> projectDtos = new ArrayList<>();
+
+        for (Projects project : projects) {
+            Long managerId = projectsService.getManagerId(project.getId());
+            Workers manager = workersService.getWorkerById(managerId);
+
+            ProjectDto projectDto = new ProjectDto(project, manager);
+            projectDtos.add(projectDto);
+        }
+        return projectDtos;
     }
 
     @PostMapping("/getManagerProject")
