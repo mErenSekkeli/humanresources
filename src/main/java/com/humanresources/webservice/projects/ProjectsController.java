@@ -82,4 +82,9 @@ public class ProjectsController {
         }
         return ResponseEntity.ok(workersService.getWorkerById(managerId));
     }
+
+    @PostMapping("/getAllManager")
+    public ResponseEntity<?> getAllManager(){
+        return ResponseEntity.ok(workersService.getAllManager());
+    }
 }

@@ -1,5 +1,6 @@
 package com.humanresources.webservice.workers;
 
+import com.humanresources.webservice.dto.ProjectDto;
 import com.humanresources.webservice.dto.WorkerDto;
 import com.humanresources.webservice.positions.Positions;
 import com.humanresources.webservice.positions.PositionsService;
@@ -22,6 +23,7 @@ public class WorkersService {
 
     @Autowired
     ProjectsService projectsService;
+
 
     @Autowired
     public WorkersService(WorkersRepository workersRepository) {
@@ -97,6 +99,21 @@ public class WorkersService {
 
     public Workers getWorkerById(Long workerId){
         return workersRepository.findById(workerId).get();
+    }
+
+    public List<ProjectDto> getAllManager() {
+        List<Projects> projects = projectsService.getAllProjects();
+        List<ProjectDto> projectDtos = new ArrayList<>();
+
+        for (Projects project : projects) {
+            Long managerId = projectsService.getManagerId(project.getId());
+            Workers manager = this.getWorkerById(managerId);
+
+            ProjectDto projectDto = new ProjectDto(project, manager);
+            projectDtos.add(projectDto);
+        }
+
+        return projectDtos;
     }
 
 
