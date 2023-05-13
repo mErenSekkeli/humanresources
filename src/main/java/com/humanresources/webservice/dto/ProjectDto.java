@@ -2,7 +2,6 @@ package com.humanresources.webservice.dto;
 
 import com.humanresources.webservice.projects.Projects;
 import com.humanresources.webservice.workers.Workers;
-import jakarta.persistence.Column;
 
 import java.sql.Date;
 
