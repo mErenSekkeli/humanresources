@@ -28,6 +28,8 @@ public class Workers {
     private long positionId;
     @Column(name = "projectId")
     private long projectId;
+    @Column(name = "accountingUrl")
+    private String accountingUrl;
     @Column(name = "recruitmentDate", nullable = false)
     private Date recruitmentDate;
     @Column(name = "termiantionDate")
