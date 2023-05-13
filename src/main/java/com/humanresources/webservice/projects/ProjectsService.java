@@ -1,10 +1,6 @@
 package com.humanresources.webservice.projects;
 
-import com.humanresources.webservice.shared.GenericResponse;
-import com.humanresources.webservice.user.UserRepository;
-import com.humanresources.webservice.workers.Workers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

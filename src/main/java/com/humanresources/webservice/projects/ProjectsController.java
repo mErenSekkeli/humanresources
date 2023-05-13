@@ -3,11 +3,9 @@ package com.humanresources.webservice.projects;
 import com.humanresources.webservice.dto.WorkerDto;
 import com.humanresources.webservice.relation.ProjectPosition;
 import com.humanresources.webservice.relation.ProjectPositionService;
-import com.humanresources.webservice.shared.GenericResponse;
 import com.humanresources.webservice.workers.Workers;
 import com.humanresources.webservice.workers.WorkersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
