@@ -2,11 +2,6 @@ package com.humanresources.webservice.dto;
 
 import com.humanresources.webservice.positions.Positions;
 import com.humanresources.webservice.workers.Workers;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Data;
 
 import java.util.Date;
 

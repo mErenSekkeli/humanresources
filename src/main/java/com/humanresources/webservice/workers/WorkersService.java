@@ -6,9 +6,7 @@ import com.humanresources.webservice.positions.Positions;
 import com.humanresources.webservice.positions.PositionsService;
 import com.humanresources.webservice.projects.Projects;
 import com.humanresources.webservice.projects.ProjectsService;
-import com.humanresources.webservice.workers.WorkersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
