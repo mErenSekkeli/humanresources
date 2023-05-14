@@ -33,7 +33,7 @@ public class WorkersController {
     }
 
     @PostMapping("/addWorker")
-    public Workers addProject(@RequestBody Workers worker){
+    public Workers addWorker(@RequestBody Workers worker){
         Workers newWorker = workersService.addWorker(worker);
         return newWorker;
     }
