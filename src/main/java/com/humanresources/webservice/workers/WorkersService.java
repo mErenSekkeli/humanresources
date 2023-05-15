@@ -81,10 +81,11 @@ public class WorkersService {
         return workerDtos;
     }
 
-    public void changeUserProject(Long workerId, Long projectId){
+    public Workers changeUserProject(Long workerId, Long projectId){
         Workers worker = workersRepository.findById(workerId).get();
         worker.setProjectId(projectId);
         workersRepository.save(worker);
+        return worker;
     }
 
     public void changeUserPostion(Long workerId, Long positionId){

@@ -1,8 +1,14 @@
 package com.humanresources.webservice;
 
+import com.humanresources.webservice.dto.WorkerDto;
+import com.humanresources.webservice.positions.Positions;
+import com.humanresources.webservice.positions.PositionsController;
+import com.humanresources.webservice.positions.PositionsRepository;
 import com.humanresources.webservice.projects.Projects;
 import com.humanresources.webservice.projects.ProjectsController;
 import com.humanresources.webservice.projects.ProjectsRepository;
+import com.humanresources.webservice.relation.ProjectPosition;
+import com.humanresources.webservice.relation.ProjectPositionController;
 import com.humanresources.webservice.shared.GenericResponse;
 import com.humanresources.webservice.workers.Workers;
 import com.humanresources.webservice.workers.WorkersController;
@@ -17,10 +23,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -40,6 +47,16 @@ class WebserviceApplicationTests {
 	@Autowired
 	ProjectsRepository projectsRepository;
 
+	@Autowired
+	PositionsRepository positionsRepository;
+
+	@Autowired
+	PositionsController positionsController;
+
+	@Autowired
+	ProjectPositionController projectPositionController;
+
+
 	@Test
 	void getAllWorkers() {
 		List<Workers> allWorkers = workersRepository.findAll();
@@ -49,9 +66,9 @@ class WebserviceApplicationTests {
 
 	@Test
 	void getAllProjects() {
-		List<Workers> allWorkers = workersRepository.findAll();
+		List<Projects> allProjects = projectsRepository.findAll();
 
-		assertNotEquals(0, allWorkers.size());
+		assertNotEquals(0, allProjects.size());
 	}
 
 	@Test
@@ -63,7 +80,7 @@ class WebserviceApplicationTests {
 		worker.setTelNo("123456789");
 		worker.setAddress("Test");
 		worker.setAccountingUrl("Test");
-		worker.setPositionId(4);
+		worker.setPositionId(2);
 		worker.setRecruitmentDate(new Date());
 		worker.setSalary(1000);
 
@@ -100,6 +117,72 @@ class WebserviceApplicationTests {
 
 		assertEquals(oldAllProjects.size() + 1, newAllProjects.size());
 	}
+
+	@Test
+	void getAllPositions() {
+		List<Positions> allPositions = positionsRepository.findAll();
+
+		assertNotEquals(0, allPositions.size());
+	}
+
+	@Test
+	void savePosition() {
+		List<Positions> allPositions = positionsRepository.findAll();
+
+		Positions positions = new Positions();
+		positions.setName("Test");
+
+
+		List<Positions> oldAllPositions = positionsRepository.findAll();
+		Positions positions1 = positionsRepository.save(positions);
+		List<Positions> newAllPositions = positionsRepository.findAll();
+
+		positionsRepository.deleteById(positions1.getId());
+
+		assertEquals(oldAllPositions.size() + 1, newAllPositions.size());
+	}
+
+	@Test
+	void getFreeWorkers(){
+		List<Workers> freeWorkers = workersController.getFreeWorkers();
+
+		for(Workers workers: freeWorkers){
+			assertEquals(0, workers.getProjectId());
+		}
+	}
+
+
+	@Test
+	void checkManagerId(){
+		List<Projects> projectsList = projectsController.getProjects();
+
+		for(Projects projects: projectsList){
+			assertNotEquals(0, projects.getManagerId());
+		}
+	}
+
+	@Test
+	void getWorkerPositionCount(){
+		Random random = new Random();
+		Iterable<Positions> positionsList = positionsController.getAllPositions();
+
+		List<Projects> projectsList = projectsController.getProjects();
+
+		int randomNumber = random.nextInt(projectsList.size() - 0 + 1) + 0;
+		Projects projects = projectsList.get(randomNumber);
+
+		int positionsSize = 0;
+		Iterator<Positions> iterator = positionsList.iterator();
+		while (iterator.hasNext()) {
+			iterator.next();
+			positionsSize++;
+		}
+
+		int positionsOfProjectSize = projectPositionController.getProjectPositionByProjectId(projects.getId()).size();
+
+		assertTrue(positionsSize >= positionsOfProjectSize);
+	}
+
 
 
 

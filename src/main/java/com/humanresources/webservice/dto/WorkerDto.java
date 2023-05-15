@@ -22,6 +22,8 @@ public class WorkerDto {
         public Date termiantionDate;
         public int compensationAmount;
 
+        public String accountingUrl;
+
         public WorkerDto(Workers worker, Positions positions){
                 this.id = worker.getId();
                 this.name = worker.getName();
@@ -36,6 +38,7 @@ public class WorkerDto {
                 this.recruitmentDate = worker.getRecruitmentDate();
                 this.termiantionDate = worker.getTermiantionDate();
                 this.compensationAmount = worker.getCompensationAmount();
+                this.accountingUrl = worker.getAccountingUrl();
         }
 
 }

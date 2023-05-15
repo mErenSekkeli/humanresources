@@ -1,6 +1,8 @@
 package com.humanresources.webservice.workers;
 
 import com.humanresources.webservice.dto.WorkerDto;
+import com.humanresources.webservice.positions.Positions;
+import com.humanresources.webservice.positions.PositionsService;
 import com.humanresources.webservice.projects.Projects;
 import com.humanresources.webservice.projects.ProjectsService;
 import com.humanresources.webservice.relation.ProjectPosition;
@@ -27,6 +29,9 @@ public class WorkersController {
     @Autowired
     ProjectPositionService projectPositionService;
 
+    @Autowired
+    PositionsService positionsService;
+
     @GetMapping("/getWorkers")
     public List<WorkerDto> getWorkers(){
         return workersService.getAllWorkers();
@@ -48,6 +53,10 @@ public class WorkersController {
                 if(worker.getPositionId() == projectPosition.getPositionId()) {
                     int workerCount = projectPositionService.getWorkerPositionCount(project.getId(), projectPosition.getPositionId());
                     if(workerCount < projectPosition.getMaxWorker()){
+                        if(workerCount+1 >= projectPosition.getMinWorker()){
+                            project.setValid(true);
+                            projectsService.updateProjectState(project);
+                        }
                         workersService.changeUserProject(workerId, project.getId());
                         return ResponseEntity.ok(new GenericResponse("Worker is added to project"));
                     }

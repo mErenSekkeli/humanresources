@@ -1,6 +1,7 @@
 package com.humanresources.webservice.projects;
 
 import com.humanresources.webservice.dto.ProjectDto;
+import com.humanresources.webservice.positions.Positions;
 import com.humanresources.webservice.workers.Workers;
 import com.humanresources.webservice.workers.WorkersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,10 @@ public class ProjectsService {
             return -1L;
         else
             return managerId;
+   }
+
+   public Projects updateProjectState(Projects projects){
+        return projectsRepository.save(projects);
    }
 
 
