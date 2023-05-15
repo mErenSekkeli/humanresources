@@ -144,10 +144,10 @@ class WebserviceApplicationTests {
 
 	@Test
 	void getFreeWorkers(){
-		List<Workers> freeWorkers = workersController.getFreeWorkers();
+		List<WorkerDto> workersList = workersController.getWorkers();
 
-		for(Workers workers: freeWorkers){
-			assertEquals(0, workers.getProjectId());
+		for(WorkerDto workers: workersList){
+			assertNotEquals(0, workers.projectId);
 		}
 	}
 

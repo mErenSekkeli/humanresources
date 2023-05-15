@@ -72,8 +72,8 @@ public class WorkersController {
     }
 
     @GetMapping("/getFreeWorkers")
-    public List<Workers> getFreeWorkers(){
-        return workersService.getFreeWorkers();
+    public List<WorkerDto> getFreeWorkers(){
+        return workersService.getAllWorkers();
     }
 
 
